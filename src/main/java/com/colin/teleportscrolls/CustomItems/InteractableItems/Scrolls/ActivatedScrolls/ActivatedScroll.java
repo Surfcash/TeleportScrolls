@@ -47,11 +47,20 @@ public abstract class ActivatedScroll extends InteractableItem {
 
     public void getTeleportBehavior(Player player, ItemStack item, HeldIndex heldIndex) {
         Location teleportLocation = LocationUtils.parseLocation(NBTUtils.getNBTString(item, "location"));
+        ItemStack itemNewStack = null;
+        if (item.getAmount() > 1) {
+            itemNewStack = new ItemStack(item);
+            itemNewStack.setAmount(itemNewStack.getAmount() - 1);
+            item.setAmount(1);
+        }
         int uses = NBTUtils.getNBTInt(item, "uses");
         player.teleport(teleportLocation);
-        if(uses >= 1) {
+        if (uses >= 1) {
             uses--;
             setItemIndex(player, embedUses(uses, item), heldIndex);
+        }
+        if (itemNewStack != null) {
+            player.getInventory().addItem(itemNewStack);
         }
     }
 
