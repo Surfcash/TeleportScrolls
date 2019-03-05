@@ -4,6 +4,8 @@ import com.colin.teleportscrolls.CustomItems.InteractableItems.Scrolls.Activated
 import com.colin.teleportscrolls.CustomItems.InteractableItems.InteractableItem;
 import com.colin.teleportscrolls.CustomItems.*;
 import com.colin.teleportscrolls.Utils.BlockUtils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -48,6 +50,7 @@ public abstract class BlankScroll extends InteractableItem {
                         } else {
                             setItemIndex(player, newItem, heldIndex);
                         }
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GOLD + "Teleport Scroll Activated"));
                     }
                 }
             }

@@ -4,6 +4,8 @@ import com.colin.teleportscrolls.CustomItems.InteractableItems.InteractableItem;
 import com.colin.teleportscrolls.Utils.BlockUtils;
 import com.colin.teleportscrolls.Utils.LocationUtils;
 import com.colin.teleportscrolls.Utils.NBTUtils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -57,6 +59,9 @@ public abstract class ActivatedScroll extends InteractableItem {
         player.teleport(teleportLocation);
         if (uses >= 1) {
             uses--;
+            if(uses > 0) {
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ChatColor.GOLD + "Uses Remaining: " + uses));
+            }
             setItemIndex(player, embedUses(uses, item), heldIndex);
         }
         if (itemNewStack != null) {
@@ -104,6 +109,7 @@ public abstract class ActivatedScroll extends InteractableItem {
             setLoreLine(2, ChatColor.GRAY + " - " + ChatColor.WHITE + "Uses" + ChatColor.GRAY + ": " + ChatColor.WHITE + "Infinite");
         } else if (uses == 0){
             item.setAmount(0);
+            return item;
         }
         else {
             setLoreLine(2, ChatColor.GRAY + " - " + ChatColor.WHITE + "Uses" + ChatColor.GRAY + ": " + ChatColor.WHITE + uses);
