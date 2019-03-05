@@ -94,7 +94,12 @@ public abstract class ActivatedScroll extends InteractableItem {
 
     private ItemStack embedUses(int uses, ItemStack item) {
         setItemStack(NBTUtils.setNBTInt(item, "uses", uses));
-        setLoreLine(2, ChatColor.GRAY + " - " + ChatColor.WHITE + "Uses" + ChatColor.GRAY + ": " + ChatColor.WHITE + uses);
+        if(uses == 0) {
+            setLoreLine(2, ChatColor.GRAY + " - " + ChatColor.WHITE + "Uses" + ChatColor.GRAY + ": " + ChatColor.WHITE + "Infinite");
+        }
+        else {
+            setLoreLine(2, ChatColor.GRAY + " - " + ChatColor.WHITE + "Uses" + ChatColor.GRAY + ": " + ChatColor.WHITE + uses);
+        }
         return getItemStack();
     }
 
