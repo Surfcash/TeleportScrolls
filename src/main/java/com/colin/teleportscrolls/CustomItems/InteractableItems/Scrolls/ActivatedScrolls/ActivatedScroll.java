@@ -49,11 +49,9 @@ public abstract class ActivatedScroll extends InteractableItem {
         Location teleportLocation = LocationUtils.parseLocation(NBTUtils.getNBTString(item, "location"));
         int uses = NBTUtils.getNBTInt(item, "uses");
         player.teleport(teleportLocation);
-        if(uses > 1) {
+        if(uses >= 1) {
             uses--;
             setItemIndex(player, embedUses(uses, item), heldIndex);
-        } else if(uses == 1) {
-            setItemIndex(player, null, heldIndex);
         }
     }
 
@@ -61,11 +59,9 @@ public abstract class ActivatedScroll extends InteractableItem {
         Location teleportLocation = LocationUtils.parseLocation(NBTUtils.getNBTString(item, "location"));
         int uses = NBTUtils.getNBTInt(item, "uses");
         player.teleport(teleportLocation);
-        if(uses > 1) {
+        if(uses >= 1) {
             uses--;
             return embedUses(uses, item);
-        } else if(uses == 1) {
-            return new ItemStack(Material.AIR);
         }
         else {
             return item;
@@ -95,8 +91,10 @@ public abstract class ActivatedScroll extends InteractableItem {
 
     private ItemStack embedUses(int uses, ItemStack item) {
         setItemStack(NBTUtils.setNBTInt(item, "uses", uses));
-        if(uses == 0) {
+        if(uses == -1) {
             setLoreLine(2, ChatColor.GRAY + " - " + ChatColor.WHITE + "Uses" + ChatColor.GRAY + ": " + ChatColor.WHITE + "Infinite");
+        } else if (uses == 0){
+            item.setAmount(0);
         }
         else {
             setLoreLine(2, ChatColor.GRAY + " - " + ChatColor.WHITE + "Uses" + ChatColor.GRAY + ": " + ChatColor.WHITE + uses);
