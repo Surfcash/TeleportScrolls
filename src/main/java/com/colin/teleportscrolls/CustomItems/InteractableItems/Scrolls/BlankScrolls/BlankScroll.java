@@ -31,10 +31,6 @@ public abstract class BlankScroll extends InteractableItem {
         ItemStack item = getItemIndex(player, heldIndex);
         Location location = player.getLocation();
         if(equals(item)) {
-            if(event.getClickedBlock() != null) {
-                player.sendMessage(event.getClickedBlock().getType().toString());
-                player.sendMessage("Interactable? " + BlockUtils.isInteractableBlock(event.getClickedBlock().getType()));
-            }
             if(event.getClickedBlock() != null && BlockUtils.isInteractableBlock(event.getClickedBlock().getType())) {
                 return;
             }

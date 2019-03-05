@@ -35,10 +35,6 @@ public abstract class ActivatedScroll extends InteractableItem {
         ItemStack item = getItemIndex(player, heldIndex);
 
         if(equals(item)) {
-            if(event.getClickedBlock() != null) {
-                player.sendMessage(event.getClickedBlock().getType().toString());
-                player.sendMessage("Interactable? " + BlockUtils.isInteractableBlock(event.getClickedBlock().getType()));
-            }
             if(event.getClickedBlock() != null && BlockUtils.isInteractableBlock(event.getClickedBlock().getType())) {
                 return;
             }
