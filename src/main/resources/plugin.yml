@@ -1,5 +1,6 @@
 name: TeleportScrolls
 version: ${project.version}
+api-version: 1.13
 main: com.colin.teleportscrolls.TeleportScrolls
 authors: [Surfcash]
 description: Plug and play teleport scrolls with uses

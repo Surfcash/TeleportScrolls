@@ -1,6 +1,7 @@
 package com.colin.teleportscrolls.CustomItems.InteractableItems.Scrolls.ActivatedScrolls;
 
 import com.colin.teleportscrolls.CustomItems.InteractableItems.InteractableItem;
+import com.colin.teleportscrolls.Utils.BlockUtils;
 import com.colin.teleportscrolls.Utils.LocationUtils;
 import com.colin.teleportscrolls.Utils.NBTUtils;
 import org.bukkit.ChatColor;
@@ -34,7 +35,11 @@ public abstract class ActivatedScroll extends InteractableItem {
         ItemStack item = getItemIndex(player, heldIndex);
 
         if(equals(item)) {
-            if(event.getClickedBlock() != null && event.getClickedBlock().getType().isInteractable()) {
+            if(event.getClickedBlock() != null) {
+                player.sendMessage(event.getClickedBlock().getType().toString());
+                player.sendMessage("Interactable? " + BlockUtils.isInteractableBlock(event.getClickedBlock().getType()));
+            }
+            if(event.getClickedBlock() != null && BlockUtils.isInteractableBlock(event.getClickedBlock().getType())) {
                 return;
             }
 

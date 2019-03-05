@@ -3,6 +3,7 @@ package com.colin.teleportscrolls.CustomItems.InteractableItems.Scrolls.BlankScr
 import com.colin.teleportscrolls.CustomItems.InteractableItems.Scrolls.ActivatedScrolls.ActivatedScroll;
 import com.colin.teleportscrolls.CustomItems.InteractableItems.InteractableItem;
 import com.colin.teleportscrolls.CustomItems.*;
+import com.colin.teleportscrolls.Utils.BlockUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,7 +31,11 @@ public abstract class BlankScroll extends InteractableItem {
         ItemStack item = getItemIndex(player, heldIndex);
         Location location = player.getLocation();
         if(equals(item)) {
-            if(event.getClickedBlock() != null && event.getClickedBlock().getType().isInteractable()) {
+            if(event.getClickedBlock() != null) {
+                player.sendMessage(event.getClickedBlock().getType().toString());
+                player.sendMessage("Interactable? " + BlockUtils.isInteractableBlock(event.getClickedBlock().getType()));
+            }
+            if(event.getClickedBlock() != null && BlockUtils.isInteractableBlock(event.getClickedBlock().getType())) {
                 return;
             }
             if(action.equals(Action.RIGHT_CLICK_BLOCK) || action.equals(Action.RIGHT_CLICK_AIR)) {
