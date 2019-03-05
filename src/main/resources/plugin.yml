@@ -1,0 +1,14 @@
+name: TeleportScrolls
+version: ${project.version}
+main: com.colin.teleportscrolls.TeleportScrolls
+authors: [Surfcash]
+description: Plug and play teleport scrolls with uses
+commands:
+  scrolls:
+    description: Main Rituals Command
+    permission: scrolls.*
+    permission-message: You do not have permission!
+permissions:
+  scrolls.*:
+    description: Gives access to all scroll commands
+    default: op
