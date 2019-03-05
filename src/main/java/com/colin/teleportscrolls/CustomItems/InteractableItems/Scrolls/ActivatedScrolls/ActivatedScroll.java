@@ -6,9 +6,7 @@ import com.colin.teleportscrolls.Utils.LocationUtils;
 import com.colin.teleportscrolls.Utils.NBTUtils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -49,6 +47,13 @@ public abstract class ActivatedScroll extends InteractableItem {
 
     public void getTeleportBehavior(Player player, ItemStack item, HeldIndex heldIndex) {
         Location teleportLocation = LocationUtils.parseLocation(NBTUtils.getNBTString(item, "location"));
+        Location previousLocation = player.getLocation();
+
+        player.getWorld().spawnParticle(Particle.END_ROD, teleportLocation, 50, 0, 1, 0, 0.05F, null, true);
+        player.getWorld().spawnParticle(Particle.END_ROD, previousLocation, 50, 0, 1, 0, 0.05F, null, true);
+        player.playSound(teleportLocation, Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
+        player.playSound(previousLocation, Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
+
         ItemStack itemNewStack = null;
         if (item.getAmount() > 1) {
             itemNewStack = new ItemStack(item);
@@ -107,7 +112,7 @@ public abstract class ActivatedScroll extends InteractableItem {
         setItemStack(NBTUtils.setNBTInt(item, "uses", uses));
         if(uses == -1) {
             setLoreLine(2, ChatColor.GRAY + " - " + ChatColor.WHITE + "Uses" + ChatColor.GRAY + ": " + ChatColor.WHITE + "Infinite");
-        } else if (uses == 0){
+        } else if (uses == 0 || uses < -1){
             item.setAmount(0);
             return item;
         }
